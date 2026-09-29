@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0a1214;
+  --color-ink-2: #101b1e;
+  --color-line: #22343a;   /* decorative dividers only */
+  --color-edge: #557278;   /* borders of interactive controls (>= 3:1 on ink, WCAG 1.4.11) */
+  --color-paper: #eef5f4;  /* ~17:1 on ink */
+  --color-mute: #9fb4b7;   /* ~8:1 on ink-2 */
+  --color-accent: #6fe0cc; /* ~12:1 on ink */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body { background: var(--color-ink); color: var(--color-paper); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 2px; }
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+dialog::backdrop { background: rgb(4 9 10 / .92); }
+
+/* ───────── Motion ─────────
+   Everything below only applies when the visitor has not asked their device for reduced motion. */
+@keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+@keyframes pop { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -26px, 0); } }
+@keyframes slide-in { from { transform: translateX(-100%); } to { transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    /* Scroll reveals (elements stay visible if JS is off) */
+    &.js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+    &.js .reveal.is-in { opacity: 1; transform: none; }
+    &.js .stagger > * { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    &.js .stagger.is-in > * { opacity: 1; transform: none; }
+    &.js .stagger > :nth-child(2) { transition-delay: .08s; }
+    &.js .stagger > :nth-child(3) { transition-delay: .16s; }
+    &.js .stagger > :nth-child(4) { transition-delay: .24s; }
+    &.js .stagger > :nth-child(5) { transition-delay: .32s; }
+    &.js .stagger > :nth-child(6) { transition-delay: .4s; }
+    &.js .slide-l { opacity: 0; transform: translateX(-42px); transition: opacity .8s ease, transform .8s ease; }
+    &.js .slide-r { opacity: 0; transform: translateX(42px); transition: opacity .8s ease .12s, transform .8s ease .12s; }
+    &.js .is-in .slide-l, &.js .is-in .slide-r { opacity: 1; transform: none; }
+
+    /* Hero entrance */
+    .hero-in { animation: rise .9s cubic-bezier(.2, .7, .2, 1) both; animation-delay: var(--d, 0s); }
+    .hero-pop { animation: pop 1s cubic-bezier(.2, .7, .2, 1) both .15s; }
+
+    /* Ambient loops (pausable via the toggle) */
+    .ring-spin { animation: spin 7s linear infinite; }
+    .blob { animation: float 9s ease-in-out infinite; }
+    .blob-2 { animation-duration: 12s; animation-delay: -4s; }
+
+    dialog[open] { animation: fade .25s ease; }
+    dialog.drawer[open] { animation: slide-in .3s cubic-bezier(.2, .7, .2, 1); }
+    dialog[open] .viewer-img { animation: pop .35s cubic-bezier(.2, .7, .2, 1) both; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
