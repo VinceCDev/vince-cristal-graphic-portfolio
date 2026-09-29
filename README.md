@@ -71,7 +71,14 @@ src/
 
 The site is fully static. Run `npm run build` and publish the `dist/` folder to any static host (GitHub Pages, Netlify, Vercel, etc.).
 
-If it is served from a sub-path such as `https://username.github.io/repo-name/`, set `base: '/repo-name/'` in [`vite.config.js`](vite.config.js) and make sure asset paths respect it.
+### GitHub Pages
+
+The repo includes a workflow ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)) that builds and publishes the site on every push to `main`.
+
+1. In the repo, open **Settings → Pages** and set **Source** to **GitHub Actions**.
+2. Push to `main`; the site is published at `https://vincecdev.github.io/vince-cristal-graphic-portfolio/`.
+
+The production build uses the repo name as its base path (see [`vite.config.js`](vite.config.js)); if you rename the repo, update `base` there. Files from `public/` must be referenced with the `asset()` helper in `src/data/content.js` so they resolve under that path.
 
 > The `images/video/` folder holds a very large source video and should not be committed to Git (GitHub rejects files over 100 MB). The site plays the video from YouTube instead.
 

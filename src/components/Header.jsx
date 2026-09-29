@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { profile } from '../data/content'
+import { profile, asset } from '../data/content'
 import { MenuIcon, CloseIcon } from './Icons'
 
 const links = [
@@ -44,7 +44,7 @@ export default function Header() {
     <header className="sticky top-0 z-40 border-b border-line/70 bg-ink/85 backdrop-blur">
       <nav aria-label="Primary" className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-5 py-3 sm:px-8">
         <a href="#top" className="flex items-center gap-2.5 font-display text-lg tracking-tight">
-          <img src="/brand/logo-96.png" alt="" width="32" height="32" className="h-8 w-8 rounded-md" />
+          <img src={asset('brand/logo-96.png')} alt="" width="32" height="32" className="h-8 w-8 rounded-md" />
           <span>Vince<span className="text-accent"> Cristal</span></span>
         </a>
 
@@ -84,7 +84,7 @@ export default function Header() {
         <div className="flex h-full flex-col px-6 py-5">
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-2.5 font-display text-lg">
-              <img src="/brand/logo-96.png" alt="" width="32" height="32" className="h-8 w-8 rounded-md" />
+              <img src={asset('brand/logo-96.png')} alt="" width="32" height="32" className="h-8 w-8 rounded-md" />
               Menu
             </span>
             <button

@@ -1,8 +1,8 @@
-import { profile } from '../data/content'
+import { profile, asset } from '../data/content'
 import { useReveal } from '../hooks'
 
 // Web-sized copy of images/grad_pic/grad_pic.jpg (regenerate with `npm run images`).
-const photo = '/brand/grad_pic.webp'
+const photo = asset('brand/grad_pic.webp')
 
 export default function About() {
   const ref = useReveal()

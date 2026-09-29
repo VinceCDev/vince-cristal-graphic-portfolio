@@ -1,3 +1,6 @@
+// Resolves a file in public/ against the site's base path (needed on GitHub Pages sub-paths)
+export const asset = (path) => import.meta.env.BASE_URL + path
+
 // ───────────────────────── EDIT ME ─────────────────────────
 // All personal details live here. Anything in [brackets] is a placeholder to replace.
 
@@ -6,7 +9,7 @@ export const profile = {
   roles: ['Web Designer', 'Graphic Designer', 'Video Editor'],
   statement:
     'Posters, infographics, promotional graphics, and editorial layouts designed with clear hierarchy, thoughtful composition, and engaging visual communication.',
-  portrait: '/brand/vince.jpg',
+  portrait: asset('brand/vince.jpg'),
   portraitAlt: 'Portrait of Vince Allen Cristal in a cream barong against a deep green backdrop',
   location: 'Rizal, Laguna, Philippines',
   email: 'allencristal23@gmail.com',
@@ -103,7 +106,7 @@ const order = ['wretched-personality-poster', 'court-kings-logo', 'agrifeed-pro'
 const rank = (id) => (order.includes(id) ? order.indexOf(id) : order.length)
 export const works = [...allWorks].sort((a, b) => rank(a.id) - rank(b.id))
 
-export const src = (id, size = 'sm') => `/work/${id}-${size}.webp`
+export const src = (id, size = 'sm') => asset(`work/${id}-${size}.webp`)
 
 // ── Videos ──
 // Hosted on YouTube (the 680 MB source file stays out of the site).
